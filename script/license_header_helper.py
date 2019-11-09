@@ -30,6 +30,8 @@ import os
 
 
 def GetLicenseHeader(file_name):
+    """ Return the license header file based on the file extension """
+
     if not os.path.exists(file_name) or not os.path.isfile(file_name):
         print('File {} not found.'.format(file_name))
         return None
@@ -39,12 +41,17 @@ def GetLicenseHeader(file_name):
     if ext in ['.cc', '.cpp', '.h', '.hpp']:
         return os.path.join('misc', 'license_header.h.in')
 
+    elif ext in ['.py']:
+        return os.path.join('misc', 'license_header.py.in')
+
     else:
         # add here to support new file formats
         return None
 
 
 def CheckLicenseHeader(file_name, header_file):
+    """ Check if already has the license header """
+
     with open(header_file, 'r') as f_header:
         # read header file content
         header = f_header.read()
@@ -60,7 +67,9 @@ def CheckLicenseHeader(file_name, header_file):
                 return target[:len(header)] == header
 
 
-def UpdateLicenseHeader(file_name, header_file, add):
+def UpdateFileWithLicenseHeader(file_name, header_file, add):
+    """ Update the file (add/erase) w.r.t. the license header """
+
     with open(file_name, 'r') as fr:
         original = fr.read()
 
@@ -75,7 +84,9 @@ def UpdateLicenseHeader(file_name, header_file, add):
             fw.write(original[len(header):])
 
 
-def VisitLicenseHeader(file_name, args):
+def VisitFile(file_name, args):
+    """ Check a file and update accordingly """
+
     header = GetLicenseHeader(file_name)
     if not header:
         return None
@@ -85,12 +96,12 @@ def VisitLicenseHeader(file_name, args):
     if has_header and args.erase:
         print('Remove header from {}'.format(file_name))
         if not args.dry:
-            UpdateLicenseHeader(file_name, header, False)
+            UpdateFileWithLicenseHeader(file_name, header, False)
 
     elif not has_header and not args.erase:
         print('Add header to {}'.format(file_name))
         if not args.dry:
-            UpdateLicenseHeader(file_name, header, True)
+            UpdateFileWithLicenseHeader(file_name, header, True)
 
     else:
         pass
@@ -114,7 +125,7 @@ if __name__ == '__main__':
     if os.path.isdir(args.path):
         for root, _, files in os.walk(args.path):
             for f in files:
-                VisitLicenseHeader(os.path.join(root, f), args)
+                VisitFile(os.path.join(root, f), args)
 
     elif os.path.isfile(args.path):
-        VisitLicenseHeader(args.path, args)
+        VisitFile(args.path, args)

@@ -32,6 +32,8 @@ from string import Template
 
 
 def InitProject(project_name):
+    """ Initialize the ILA project with the given name """
+
     # the list of target files (destination path, template file)
     target_list = [
         (os.path.join('cmake', 'FindZ3.cmake'), 'FindZ3.cmake.in'),

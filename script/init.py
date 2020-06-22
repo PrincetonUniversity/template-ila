@@ -36,6 +36,7 @@ def InitProject(project_name):
 
     # the list of target files (destination path, template file)
     target_list = [
+        (os.path.join('cmake', 'Findsmtswitch.cmake'), 'Findsmtswitch.cmake.in'),
         (os.path.join('cmake', 'FindZ3.cmake'), 'FindZ3.cmake.in'),
         (os.path.join('app', 'main.cc'), 'main.cc.in'),
         (os.path.join('include', project_name,

@@ -67,7 +67,7 @@ def InitProject(project_name):
             template = Template(template_raw)
 
         dir_name = os.path.dirname(target[0])
-        if dir_name:
+        if dir_name and not os.path.exists(dir_name):
             os.makedirs(dir_name)
 
         with open(target[0], 'w') as fw:

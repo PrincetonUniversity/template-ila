@@ -2,9 +2,9 @@
 
 #include <${project_name}/${header_file_name}>
 
-#include <ilang/util/log.h>
-
 namespace ilang {
+
+namespace ${project_name} {
 
 Ila ${top_method_name}(const std::string& model_name) {
   auto m = Ila(model_name);
@@ -23,9 +23,9 @@ Ila ${top_method_name}(const std::string& model_name) {
   instr_wr_ctrl.SetDecode(addr == 0xFF00);
   instr_wr_ctrl.SetUpdate(ctrl, Ite(data < 8, data, ctrl));
 
-  // TODO
-
   return m;
 }
+
+}; // namespace ${project_name}
 
 }; // namespace ilang

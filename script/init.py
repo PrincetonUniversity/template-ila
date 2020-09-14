@@ -40,8 +40,8 @@ def InitProject(project_name):
         (os.path.join('cmake', 'FindZ3.cmake'), 'FindZ3.cmake.in'),
         (os.path.join('app', 'main.cc'), 'main.cc.in'),
         (os.path.join('include', project_name,
-                      '{}_top.h'.format(project_name)), 'header.h.in'),
-        (os.path.join('src', '{}_top.cc'.format(project_name)), 'source.cc.in'),
+                      '{}.h'.format(project_name)), 'header.h.in'),
+        (os.path.join('src', '{}.cc'.format(project_name)), 'source.cc.in'),
         ('CMakeLists.txt', 'CMakeLists.txt.top.in')
     ]
 
@@ -54,9 +54,9 @@ def InitProject(project_name):
     # template fields mapping
     d = {}
     d['project_name'] = project_name
-    d['header_guard'] = '{}_TOP_H__'.format(project_name.upper())
-    d['header_file_name'] = '{}_top.h'.format(project_name)
-    d['source_file_name'] = '{}_top.cc'.format(project_name)
+    d['header_guard'] = '{}_H__'.format(project_name.upper())
+    d['header_file_name'] = '{}.h'.format(project_name)
+    d['source_file_name'] = '{}.cc'.format(project_name)
     d['top_method_name'] = 'Get{}Ila'.format(project_name.capitalize())
 
     # generate
